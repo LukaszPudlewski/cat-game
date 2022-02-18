@@ -12,7 +12,7 @@ class Player {
     constructor() {
         this.position = {
             x: 100,
-            y: 500
+            y: 400
         }
 
         this.velocity = {
@@ -20,19 +20,61 @@ class Player {
             y: 1
         }
 
-        this.width = 40
-        this.height = 40
+        this.width = 174.5
+        this.height = 150
+
+        this.image = catR
+        this.frames = 0
+        this.sprites = {
+            stand: {
+                right: catR,
+                left: catL
+            },
+            run: {
+                right: catR,
+                left: catL
+            }
+
+        }
+        this.currentSprite = this.sprites.stand.right
         
     }
 
+
     draw() {
-        c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
-        
+        //c.fillStyle = 'red'
+        //c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        if (keys.right.pressed || keys.left.pressed) {
+        c.drawImage(
+            this.currentSprite, 
+            0,
+            174.5 * this.frames,
+            178.5,
+            174.25,
+            this.position.x, 
+            this.position.y, 
+            this.width, 
+            this.height)
+        } else {
+            c.drawImage(
+                this.currentSprite, 
+                0,
+                0,
+                178.5,
+                174.25,
+                this.position.x, 
+                this.position.y, 
+                this.width, 
+                this.height)
+        }
     }
 
     update() {      
         this.position.x += this.velocity.x;
+        this.frames++
+        if (this.frames > 3) {
+            this.frames = 0
+        }
         this.position.y += this.velocity.y;        
         this.draw();
         if (this.position.y + this.height + this.velocity.y <= canvas.height)
@@ -86,6 +128,12 @@ image.src = 'platformSmallTall.png'
 
 const cloud = new Image(400, 200)
 cloud.src = '378-3787960_1000-x-1000-28-0-cloud-sprite-png-removebg-preview.png'
+
+const catR = new Image()
+catR.src = 'catR.png'
+
+const catL = new Image()
+catL.src = 'catL.png'
 
 const player = new Player()
 
@@ -159,8 +207,8 @@ const animate = () => {
     }
     platforms.forEach((platform) => {
     if (player.position.y <= platform.position.y + platform.height &&
-        player.position.x + player.width >= platform.position.x &&
-        player.position.x < platform.position.x + platform.width &&
+        player.position.x + player.width - 50 >= platform.position.x &&
+        player.position.x + 50 < platform.position.x + platform.width &&
         player.position.y >= platform.position.y) {
         player.velocity.y = 10
     }
@@ -168,8 +216,8 @@ const animate = () => {
     platforms.forEach((platform) => {
     if (player.position.y + player.height <= platform.position.y &&
         player.position.y + player.height + player.velocity.y >= platform.position.y
-        && player.position.x + player.width >= platform.position.x &&
-        player.position.x < platform.position.x + platform.width) {
+        && player.position.x + player.width - 50 >= platform.position.x &&
+        player.position.x + 50 < platform.position.x + platform.width) {
         player.velocity.y = 0
     } 
 })
@@ -184,6 +232,7 @@ addEventListener('keydown', ({keyCode}) => {
         case 37:
             console.log('left')
             keys.left.pressed = true
+            player.currentSprite = player.sprites.run.left
             break
 
         case 40:
@@ -193,11 +242,12 @@ addEventListener('keydown', ({keyCode}) => {
         case 39:
             console.log('right')
             keys.right.pressed = true
+            player.currentSprite = player.sprites.run.right
             break
 
         case 38:
             console.log('up')
-            if (player.position.y + player.height >= canvas.height) {
+            if (player.position.y - 40 > canvas.height) {
                     player.velocity.y -= 20
                 }
                 platforms.forEach((platform) => {
