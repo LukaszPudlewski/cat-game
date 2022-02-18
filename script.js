@@ -52,7 +52,7 @@ class Player {
             178.5,
             174.25,
             this.position.x, 
-            this.position.y, 
+            this.position.y + 5, 
             this.width, 
             this.height)
         } else {
@@ -63,7 +63,7 @@ class Player {
                 178.5,
                 174.25,
                 this.position.x, 
-                this.position.y, 
+                this.position.y + 5, 
                 this.width, 
                 this.height)
         }
@@ -195,12 +195,12 @@ const animate = () => {
             
         }
 
-        if (scrollOffset > 36000) {
+        if (scrollOffset > 35500) {
             document.getElementById("alert").style.display = "block"
             document.getElementById("can1").style.display = "none"
         }
 
-        if (player.position.y > canvas.height && scrollOffset < 36000) {
+        if (player.position.y > canvas.height && scrollOffset < 35500) {
             document.getElementById("alertL").style.display = "block"
             document.getElementById("can1").style.display = "none"
         }
