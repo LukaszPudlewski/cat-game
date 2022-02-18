@@ -22,11 +22,13 @@ class Player {
 
         this.width = 40
         this.height = 40
+        
     }
 
     draw() {
         c.fillStyle = 'red'
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        
     }
 
     update() {      
@@ -58,18 +60,43 @@ class Platform {
     } 
 }
 
+class Deco {
+    constructor({x, y, cloud}) {
+        this.position = {
+            x: x,
+            y: y
+        }
+        this.image = cloud
+        this.width = cloud.width
+        this.height = cloud.height
+        
+    }
+
+    draw() {
+        //c.fillStyle = 'blue'
+        //c.fillRect(this.position.x , this.position.y , this.width , this.height)
+        c.drawImage(this.image, this.position.x, this.position.y, 400, 200)
+    } 
+}
+
 
 
 const image = new Image()
 image.src = 'platformSmallTall.png'
 
+const cloud = new Image(400, 200)
+cloud.src = '378-3787960_1000-x-1000-28-0-cloud-sprite-png-removebg-preview.png'
+
 const player = new Player()
+
 const platforms = [new Platform({x:200, y:300, image}), 
 new Platform({x:400, y:500, image}), new Platform({x:-1, y:580, image}),
 new Platform({x:600, y:180, image}), new Platform({x:1200, y:500, image}),
 new Platform({x:1500, y:100, image}), new Platform({x:1900, y:400, image}),
 new Platform({x:2100, y:580, image}), new Platform({x:2500, y:280, image}),
 new Platform({x:2900, y:350, image}), new Platform({x:3600, y:550, image})]
+
+const deco = [new Deco({x: 600, y: 30, cloud}), new Deco({x: 2000, y: 30, cloud})]
 
 const keys = {
     right: {
@@ -86,6 +113,9 @@ const animate = () => {
     requestAnimationFrame(animate)
     c.fillStyle = 'salmon' 
     c.fillRect(0, 0, canvas.width, canvas.height)
+    deco.forEach(deco => {
+        deco.draw()
+    })
         platforms.forEach((platform) => {
         platform.draw()        
     })
@@ -102,7 +132,10 @@ const animate = () => {
             platforms.forEach((platform) => {
                 platform.position.x -= 5
                 scrollOffset +=5
-                console.log(scrollOffset)
+                console.log(scrollOffset)                
+            })
+            deco.forEach((deco) => {
+                deco.position.x -= 4
             })
             
         } else if (keys.left.pressed) {
