@@ -13,6 +13,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            color: aliceblue;
         }
 
         #alert {position: absolute;
@@ -52,18 +53,26 @@
 		float: top;
 		font-size: 5em;
 		display: none;
-	
-		
+			
 }
-
-button:hover {cursor: pointer;
+        button:hover {cursor: pointer;
               background-color: grey;
               border-color: gold;
 }
+        #score {
+            position: fixed;
+            top: 0;
+            font-size: 2em;
+        }
     </style>
 </head>
 <body>
+    <div id="score">
+        Score: 0
+    </div>
+    
     <canvas id="can1"></canvas>
+    
     <div id="alert">
         <h1>YOU HAVE WON!</h1>
         <button onclick="location.reload ()">Play Again </button>
