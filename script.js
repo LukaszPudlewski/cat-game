@@ -188,18 +188,19 @@ new Platform({x:2900, y:350, image}), new Platform({x:3600, y:550, image})]
 
 const deco = [new Deco({x: 600, y: 30, cloud}), new Deco({x: 2000, y: 30, cloud})]
 
-const gold = [new Gold({x: 100, y: 100, goldImage}), new Gold({x: 200, y: 300, goldImage}),
-    new Gold({x: 800, y: 400, goldImage}), new Gold({x: 1200, y: 100, goldImage}),
-    new Gold({x: 1500, y: 200, goldImage}), new Gold({x: 1900, y: 90, goldImage}),]
+const gold = [new Gold({x: 100, y: 100, goldImage}), new Gold({x: 400, y: 200, goldImage}),
+    new Gold({x: 1000, y: 300, goldImage}), new Gold({x: 1200, y: 100, goldImage}),
+    new Gold({x: 1500, y: 200, goldImage}), new Gold({x: 1900, y: 90, goldImage}),
+    new Gold({x: -300, y: 100, goldImage}), new Gold({x: 350, y: 350, goldImage})]
 
-const lava = [new Lava({x:-1, y: 530, lavaImage}), new Lava({x:-338, y: 530, lavaImage}),
-    new Lava({x:336, y: 530, lavaImage}), new Lava({x:674, y: 530, lavaImage}),
+const lava = [new Lava({x:0, y: 530, lavaImage}), new Lava({x:-337, y: 530, lavaImage}),
+    new Lava({x:337, y: 530, lavaImage}), new Lava({x:674, y: 530, lavaImage}),
     new Lava({x:1011, y: 530, lavaImage}), new Lava({x:1348, y: 530, lavaImage}),
     new Lava({x:1685, y: 530, lavaImage}), new Lava({x:2022, y: 530, lavaImage}),
     new Lava({x:2359, y: 530, lavaImage}), new Lava({x:2696, y: 530, lavaImage}),
     new Lava({x:3033, y: 530, lavaImage}), new Lava({x:3370, y: 530, lavaImage}),
     new Lava({x:3707, y: 530, lavaImage}), new Lava({x:4044, y: 530, lavaImage}),
-    new Lava({x:-675, y: 530, lavaImage}),]
+    new Lava({x:-674, y: 530, lavaImage}),]
     
 const keys = {
     right: {
@@ -217,9 +218,7 @@ const animate = () => {
     c.fillStyle = 'salmon' 
     c.fillRect(0, 0, canvas.width, canvas.height)
     
-     gold.forEach(gold => {
-        gold.draw()
-    })
+    
     deco.forEach(deco => {
         deco.draw()
     })
@@ -228,6 +227,9 @@ const animate = () => {
     })
     lava.forEach(lava => {
         lava.draw()
+    })
+    gold.forEach(gold => {
+        gold.draw()
     })
     player.update()
 
